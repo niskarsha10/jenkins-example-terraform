@@ -28,10 +28,13 @@ pipeline {
       }
     }
     stage('terraform') {
+    withCredentials([<object of type com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding>]) {
+    // some block
       steps {
         sh 'terraform init'
         sh 'terraform apply -auto-approve -no-color'
-      }
+       }
+     }
     }
   }
   post {

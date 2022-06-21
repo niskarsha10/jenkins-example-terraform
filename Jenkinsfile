@@ -28,10 +28,12 @@ pipeline {
       }
     }
     stage('terraform') {
-      steps {
-        sh 'terraform init'
-        sh 'terraform apply -auto-approve -no-color'
-       }
+      withAWS(credentials: 'aadi_aws', region: 'us-east-2') {
+        steps {
+          sh 'terraform init'
+          sh 'terraform apply -auto-approve -no-color'
+         }
+      }
     }
   }
   post {

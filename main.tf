@@ -1,8 +1,8 @@
-module "vpc-west" {
+module "aadi_vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "2.17.0"
 
-  name = "aditya-vpc"
+  name = "aadi-vpc"
 
   cidr = "10.0.0.0/16"
 
@@ -12,3 +12,14 @@ module "vpc-west" {
   enable_dns_hostnames = true
   enable_dns_support   = true
 }
+module "aadi-sg" {
+  source = "terraform-aws-modules/vpc/aws"
+
+  name        = "aadi-sg"
+  description = "Security group which is used as an argument in complete-sg"
+  vpc_id      = data.aws_vpc.default.id
+
+  ingress_cidr_blocks = ["0.0.0.0/0"]
+  ingress_rules       = ["https-443-tcp"]
+}
+

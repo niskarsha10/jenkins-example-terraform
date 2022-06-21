@@ -1,3 +1,3 @@
-output "vpc-west" {
-  value = module.vpc-west.vpc_id
+output "aadi_vpc" {
+  value = module.aadi_vpc.vpc_id
 }

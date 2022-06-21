@@ -28,8 +28,8 @@ pipeline {
       }
     }
     stage('terraform') {
-      withAWS(credentials: 'aadi_aws', region: 'us-east-2') {
-        steps {
+      steps {
+        withAWS(credentials: 'aadi_aws', region: 'us-east-2') {  
           sh 'terraform init'
           sh 'terraform apply -auto-approve -no-color'
          }

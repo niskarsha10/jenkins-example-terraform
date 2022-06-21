@@ -12,31 +12,18 @@ module "aadi_vpc" {
   enable_dns_hostnames = true
   enable_dns_support   = true
 }
-module "aadi-sg" {
-  source = "terraform-aws-modules/vpc/aws"
 
-<<<<<<< HEAD
-module "main_sg" {
-  source = "./modules/terraform-aws-security-group"
+resource "aws_security_group" "sg" {
+  name_prefix = "aadi"
+  description = "Allow SSH inbound traffic"
 
-  description = "Security group which is used as an argument in complete-sg"
-  ingress_with_cidr_blocks = [
-    {
-      from_port   = 22
-      to_port     = 22
-      protocol    = "tcp"
-      description = "Service name"
-      cidr_blocks = "0.0.0.0/0"
-    },
-  ]
-}
-=======
-  name        = "aadi-sg"
-  description = "Security group which is used as an argument in complete-sg"
-  vpc_id      = data.aws_vpc.default.id
-
-  ingress_cidr_blocks = ["0.0.0.0/0"]
-  ingress_rules       = ["https-443-tcp"]
 }
 
->>>>>>> parent of 18c83c7 (chsan)
+resource "aws_security_group_rule" "example" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws.aws_Security_group.id
+}

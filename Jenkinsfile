@@ -14,8 +14,8 @@ pipeline {
         checkout scm
       }
     }
-    stage('terraform') {
-      steps{
+    stage('terraform-init') {
+      steps {
         withAWS(credentials: 'aadi_aws', region: 'us-east-2') {
           sh '''
            terraform init
@@ -36,7 +36,7 @@ pipeline {
         '''
       }
     }
-    stage('terraform') {
+    stage('terraform-apply-and-destroy') {
       steps {
         withAWS(credentials: 'aadi_aws', region: 'us-east-2') {  
           sh '''

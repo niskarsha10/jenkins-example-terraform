@@ -14,6 +14,15 @@ pipeline {
         checkout scm
       }
     }
+    stage('terraform') {
+      steps{
+        withAWS(credentials: 'aadi_aws', region: 'us-east-2') {
+          sh '''
+           terraform init
+         '''
+         }
+      }
+    }
     stage('tfsec') {
       agent {
         docker { 
@@ -23,7 +32,6 @@ pipeline {
       }
       steps {
         sh '''
-	  terraform init
           tfsec . --no-color
         '''
       }

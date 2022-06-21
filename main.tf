@@ -26,5 +26,5 @@ resource "aws_security_group_rule" "example" {
   protocol          = "tcp"
   cidr_blocks       = ["10.10.0.0/16"]
   description       = "test"
-  security_group_id = aws_Security_group.sg.id
+  security_group_id = aws_security_group.sg.id
 }

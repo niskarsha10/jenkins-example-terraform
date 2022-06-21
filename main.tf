@@ -12,7 +12,10 @@ module "aadi_vpc" {
   enable_dns_hostnames = true
   enable_dns_support   = true
 }
+module "aadi-sg" {
+  source = "terraform-aws-modules/vpc/aws"
 
+<<<<<<< HEAD
 module "main_sg" {
   source = "./modules/terraform-aws-security-group"
 
@@ -27,3 +30,13 @@ module "main_sg" {
     },
   ]
 }
+=======
+  name        = "aadi-sg"
+  description = "Security group which is used as an argument in complete-sg"
+  vpc_id      = data.aws_vpc.default.id
+
+  ingress_cidr_blocks = ["0.0.0.0/0"]
+  ingress_rules       = ["https-443-tcp"]
+}
+
+>>>>>>> parent of 18c83c7 (chsan)

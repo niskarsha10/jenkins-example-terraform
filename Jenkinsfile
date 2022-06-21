@@ -23,6 +23,7 @@ pipeline {
       }
       steps {
         sh '''
+	  terraform init
           tfsec . --no-color
         '''
       }
@@ -30,8 +31,10 @@ pipeline {
     stage('terraform') {
       steps {
         withAWS(credentials: 'aadi_aws', region: 'us-east-2') {  
-          sh 'terraform init'
-          sh 'terraform apply -auto-approve -no-color'
+          sh '''
+	   terraform apply -auto-approve -no-color
+	   terraform destroy -auto-approve -no-color
+         '''
          }
       }
     }

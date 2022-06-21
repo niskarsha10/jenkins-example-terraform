@@ -16,7 +16,6 @@ module "aadi_vpc" {
 module "main_sg" {
   source = "./modules/terraform-aws-security-group"
 
-  name        = "main-sg"
   description = "Security group which is used as an argument in complete-sg"
   ingress_with_cidr_blocks = [
     {

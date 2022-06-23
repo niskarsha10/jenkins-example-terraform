@@ -25,8 +25,8 @@ pipeline {
     }
     stage('tfsec') {
       agent {
-        docker { 
-          image 'tfsec/tfsec-ci' 
+        docker {
+          image 'tfsec/tfsec-ci'
           reuseNode true
         }
       }
@@ -38,7 +38,7 @@ pipeline {
     }
     stage('terraform-apply-and-destroy') {
       steps {
-        withAWS(credentials: 'aadi_aws', region: 'us-east-2') {  
+        withAWS(credentials: 'aadi_aws', region: 'us-east-2') {
           sh '''
 	   terraform apply -auto-approve -no-color
 	   terraform destroy -auto-approve -no-color

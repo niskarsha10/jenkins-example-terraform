@@ -23,16 +23,16 @@ pipeline {
          }
       }
     }
-    stage('tfsec') {
+    stage('tflint') {
       agent {
         docker {
-          image 'tfsec/tfsec-ci'
+          image 'tflint/tflint-ci'
           reuseNode true
         }
       }
       steps {
         sh '''
-          tfsec . --no-color
+          tflint . --no-color
         '''
       }
     }

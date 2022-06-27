@@ -23,20 +23,36 @@ pipeline {
          }
       }
     }
-    stage('tflint') {
+    stage('tfsec') {
       agent {
         docker {
-          image 'tflint/tflint-ci'
+          image 'tfsec/tfsec-ci'
           reuseNode true
         }
       }
       steps {
         sh '''
-          tflint . --no-color
+          tfsec . --no-color
         '''
       }
     }
-    stage('terraform-apply-and-destroy') {
+    stage('TF lint') {
+           agent {
+              
+               docker {
+                   image "ghcr.io/terraform-linters/tflint"
+                   args '-i --entrypoint='
+                 }
+ 
+           }
+           steps {
+	     sh '''
+               tflint . --no-color
+             '''
+	   }
+    }
+		 
+      stage('terraform-apply-and-destroy') {
       steps {
         withAWS(credentials: 'aadi_aws', region: 'us-east-2') {
           sh '''

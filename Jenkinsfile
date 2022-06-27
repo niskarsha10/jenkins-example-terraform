@@ -36,40 +36,6 @@ pipeline {
         '''
       }
     }
-   stage('custom checks') {
-      steps {
-	      sh '''
-	       ---
-               checks:
-               - code: CUS001
-                 description: Ensure the ami and azs 
-                 impact: checks the ami and azs
-                 resolution: put the given ami and azs us-east-2a and us-east-2c
-                 requiredTypes:
-                 - resource
-                 requiredLabels:
-                 - aws_instance
-                 severity: HIGH
-                 matchSpec:
-                   action: or
-                   predicateMatchSpec:
-                     - action: and
-                     predicateMatchSpec:
-                       - name: ami
-                       action: contains
-                       value: ami-005e54dee72cc1d00
-                       - name: availability_zone
-                       action: isAny
-                       value:
-                         - us-east-2a
-                         - us-east-2c
-	       errorMessage: The required ami or azs was missing
-               relatedLinks:
-               - http://internal.acmecorp.com/standards/aws/tagging.html
-             '''
-	    }
-	  }
-		    
     stage('TF lint') {
            agent {
                docker {
@@ -83,8 +49,7 @@ pipeline {
              '''
 	   }
     }
-		 
-      stage('terraform-apply-and-destroy') {
+    stage('terraform-apply-and-destroy') {
       steps {
         withAWS(credentials: 'aadi_aws', region: 'us-east-2') {
           sh '''

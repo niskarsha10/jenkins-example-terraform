@@ -36,8 +36,8 @@ pipeline {
         '''
       }
     }
-	  stage('custom checks') {
-	    steps {
+   stage('custom checks') {
+      steps {
 	      sh '''
 	       ---
                checks:

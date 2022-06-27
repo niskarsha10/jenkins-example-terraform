@@ -44,7 +44,7 @@ pipeline {
                - code: CUS001
                  description: Ensure the ami and azs 
                  impact: checks the ami and azs
-                 resolution: put the given ami and azs ap-south-1a and ap-south-1b
+                 resolution: put the given ami and azs us-east-2a and us-east-2c
                  requiredTypes:
                  - resource
                  requiredLabels:
@@ -61,9 +61,9 @@ pipeline {
                        - name: availability_zone
                        action: isAny
                        value:
-                         - ap-south-1a
-                         - ap-south-1b
-               errorMessage: The required ami or azs was missing
+                         - us-east-2a
+                         - us-east-2c
+	       errorMessage: The required ami or azs was missing
                relatedLinks:
                - http://internal.acmecorp.com/standards/aws/tagging.html
              '''

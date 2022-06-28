@@ -23,19 +23,6 @@ pipeline {
          }
       }
     }
-    stage('tfsec') {
-      agent {
-        docker {
-          image 'tfsec/tfsec-ci'
-          reuseNode true
-        }
-      }
-      steps {
-        sh '''
-          tfsec . --no-color
-        '''
-      }
-    }
     stage('TF lint') {
            agent {
                docker {
@@ -49,6 +36,20 @@ pipeline {
              '''
 	   }
     }
+    stage('tfsec') {
+      agent {
+        docker {
+          image 'tfsec/tfsec-ci'
+          reuseNode true
+        }
+      }
+      steps {
+        sh '''
+          tfsec . --no-color
+        '''
+      }
+    }
+
     stage('terraform-apply-and-destroy') {
       steps {
         withAWS(credentials: 'aadi_aws', region: 'us-east-2') {

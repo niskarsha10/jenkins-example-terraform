@@ -16,7 +16,7 @@ pipeline {
     }
     stage('terraform-init') {
       steps {
-        withAWS(credentials: 'aadi_aws', region: 'us-east-2') {
+        withAWS(credentials: 'niskarsha_aws', region: 'us-west-2') {
           sh '''
            terraform init
          '''
@@ -52,7 +52,7 @@ pipeline {
 
     stage('terraform-apply-and-destroy') {
       steps {
-        withAWS(credentials: 'aadi_aws', region: 'us-east-2') {
+        withAWS(credentials: 'niskarsha-secret', region: 'us-west-2') {
           sh '''
 	   terraform apply -auto-approve -no-color
 	   terraform destroy -auto-approve -no-color
